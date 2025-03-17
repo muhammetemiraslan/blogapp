@@ -1,5 +1,10 @@
 <div class="list-group">
-    <a class="list-group-item list-group-item-action" href="">Programlama</a>
-    <a class="list-group-item list-group-item-action" href="">Web Programlama</a>
-    <a class="list-group-item list-group-item-action" href="">Siber Güvenlik</a>
+    {% for category in categories %}
+        {% if category.slug == selected_category %}
+            <a class="list-group-item list-group-item-action bg-dark text-white active" href="{% url 'blogs_by_category' category.slug %}">{{category.name|title}}</a>
+        {% else %}
+            <a class="list-group-item list-group-item-action" href="{% url 'blogs_by_category' category.slug %}">{{category.name|title}}</a>
+        {% endif %}
+    {% endfor %}
+
 </div>
