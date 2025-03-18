@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.shortcuts import HttpResponse
 from blog.models import Blog, Category
+
 
 # Create your views here.
 
@@ -12,6 +13,9 @@ def home(request):
     return render(request, "blog/index.html", context)
 
 def blogs(request):
+    if not request.user.is_authenticated:
+        return redirect("login")
+    
     context = {
         "blogs": Blog.objects.filter(is_active=True),
         "categories": Category.objects.all()
